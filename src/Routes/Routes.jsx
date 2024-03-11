@@ -7,17 +7,14 @@ import AdminLogin from "../admin/AdminLogin.jsx"
 import AdminRegister from "../admin/AdminRegister.jsx"
 import Reject from "../admin/Accept/Reject.jsx";
 import Profile from "../admin/manageprofile/Profile.jsx";
-<<<<<<< HEAD
 import AcceptTeacher from "../admin/Accept/AcceptTeacher.jsx";
 import AcceptDoctor from "../admin/Accept/AcceptDoctor.jsx";
 import AcceptChildren from "../admin/Accept/AcceptChildren.jsx";
 import AcceptParents from "../admin/Accept/AcceptParents.jsx";
-=======
 import ManageTeacherProfile from "../admin/manageprofile/ManageTeacherProfile.jsx";
 import ManageChildrenProfile from "../admin/manageprofile/ManageChildrenProfile.jsx";
 import ManageDoctorsProfile from "../admin/manageprofile/ManageDoctorsProfile.jsx";
 import ManageParentsProfile from "../admin/manageprofile/ManageParentsProfile.jsx";
->>>>>>> d9d7ec3cd382c382350ff4934285ac5501cf398d
 
 //-----ADMIN-MODULE---END------------------------------------------
 
