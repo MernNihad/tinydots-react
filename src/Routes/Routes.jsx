@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AdminLayout from "../admin/AdminLayout"
 import AdminLogin from "../admin/AdminLogin.jsx"
 import AdminRegister from "../admin/AdminRegister.jsx"
+import Reject from "../admin/Accept/Reject.jsx";
 
 //-----ADMIN-MODULE---END------------------------------------------
 
@@ -19,6 +20,10 @@ function Routes() {
         {
           path:"dashboard",
           element:<h1>dashboard</h1>
+        },
+        {
+          path:"accept",
+          element:<Reject/>
         }
       ]
     },
