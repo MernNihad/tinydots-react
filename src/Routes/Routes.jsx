@@ -7,6 +7,10 @@ import AdminLogin from "../admin/AdminLogin.jsx"
 import AdminRegister from "../admin/AdminRegister.jsx"
 import Reject from "../admin/Accept/Reject.jsx";
 import Profile from "../admin/manageprofile/Profile.jsx";
+import ManageTeacherProfile from "../admin/manageprofile/ManageTeacherProfile.jsx";
+import ManageChildrenProfile from "../admin/manageprofile/ManageChildrenProfile.jsx";
+import ManageDoctorsProfile from "../admin/manageprofile/ManageDoctorsProfile.jsx";
+import ManageParentsProfile from "../admin/manageprofile/ManageParentsProfile.jsx";
 
 //-----ADMIN-MODULE---END------------------------------------------
 
@@ -28,7 +32,25 @@ function Routes() {
         },
         {
           path:"profile",
-          element:<Profile/>
+          element:<Profile/>,
+          children:[
+            {
+              path:"manage-teacher-profile",
+              element: <ManageTeacherProfile/>
+            },
+            {
+              path:"manage-children-profile",
+              element: <ManageChildrenProfile/>
+            },
+            {
+              path:"manage-doctors-profile",
+              element: <ManageDoctorsProfile/>
+            },
+            {
+              path:"manage-parents-profile",
+              element: <ManageParentsProfile/>
+            }
+          ]
         }
       ]
     },
