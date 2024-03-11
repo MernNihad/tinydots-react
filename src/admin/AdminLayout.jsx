@@ -35,9 +35,9 @@ function AdminLayout() {
             <FaBars />
             <span>Accept</span>
           </div>
-          <div className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/profile')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
             <FaBars />
-            <span>Dashboars</span>
+            <span>Manage Profile</span>
           </div>
           <div className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
             <FaBars />

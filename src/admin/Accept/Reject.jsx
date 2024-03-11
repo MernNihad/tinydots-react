@@ -7,7 +7,7 @@ function Reject() {
 
   return (
     <div>
-      <div onClick={() => navigate('/admin/dashboard')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+      <div onClick={() => navigate('/admin/accept')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
             <FaBars />
             <span>Dashboars</span>
           </div>

@@ -6,6 +6,7 @@ import AdminLayout from "../admin/AdminLayout"
 import AdminLogin from "../admin/AdminLogin.jsx"
 import AdminRegister from "../admin/AdminRegister.jsx"
 import Reject from "../admin/Accept/Reject.jsx";
+import Profile from "../admin/manageprofile/Profile.jsx";
 
 //-----ADMIN-MODULE---END------------------------------------------
 
@@ -24,6 +25,10 @@ function Routes() {
         {
           path:"accept",
           element:<Reject/>
+        },
+        {
+          path:"profile",
+          element:<Profile/>
         }
       ]
     },
