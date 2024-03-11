@@ -6,11 +6,34 @@ function Reject() {
     const navigate = useNavigate()
 
   return (
-    <div>
-      <div onClick={() => navigate('/admin/dashboard')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+    <div className="flex gap-5">
+      <div onClick={() => navigate('/admin/accept')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center border-2 bg-slate-600 px-5 rounded-lg">
             <FaBars />
-            <span>Dashboars</span>
+            <span>Teachers</span>
           </div>
+
+          <div onClick={() => navigate('/admin/accept')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center  border-2 bg-slate-600 px-5 rounded-lg">
+            <FaBars />
+            <span>Children</span>
+          </div>
+
+
+          <div onClick={() => navigate('/admin/accept')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center  border-2 bg-slate-600 px-5 rounded-lg">
+            <FaBars />
+            <span>Doctor</span>
+          </div>
+
+          <div onClick={() => navigate('/admin/accept')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center  border-2 bg-slate-600 px-5 rounded-lg">
+            <FaBars />
+            <span>Parent</span>
+          </div>
+
+         
+      
+        
+     
+
+
     </div>
   )
 }
