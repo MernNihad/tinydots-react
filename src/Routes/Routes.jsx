@@ -7,6 +7,10 @@ import AdminLogin from "../admin/AdminLogin.jsx"
 import AdminRegister from "../admin/AdminRegister.jsx"
 import Reject from "../admin/Accept/Reject.jsx";
 import Profile from "../admin/manageprofile/Profile.jsx";
+import AcceptTeacher from "../admin/Accept/AcceptTeacher.jsx";
+import AcceptDoctor from "../admin/Accept/AcceptDoctor.jsx";
+import AcceptChildren from "../admin/Accept/AcceptChildren.jsx";
+import AcceptParents from "../admin/Accept/AcceptParents.jsx";
 
 //-----ADMIN-MODULE---END------------------------------------------
 
@@ -24,7 +28,25 @@ function Routes() {
         },
         {
           path:"accept",
-          element:<Reject/>
+          element:<Reject/>,
+          children:[
+            {
+              path:"acceptteacher",
+              element:<AcceptTeacher/>
+            },
+            {
+              path:"acceptchildren",
+              element:<AcceptChildren/>
+            },
+            {
+              path:"acceptdoctor",
+              element:<AcceptDoctor/>
+            },
+            {
+              path:"acceptparents",
+              element:<AcceptParents/>
+            }
+          ]
         },
         {
           path:"profile",
