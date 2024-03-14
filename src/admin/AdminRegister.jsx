@@ -1,5 +1,3 @@
-import React from 'react'
-
 function AdminRegister() {
     return (
         <form className="max-w-md mx-auto">

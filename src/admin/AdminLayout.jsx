@@ -8,7 +8,7 @@ function AdminLayout() {
 
   return (
     <div className="flex">
-      <div className='max-w-64 bg-black h-screen text-white'>
+      <div className='p-10 bg-black h-screen text-white'>
 
         {/* admin title */}
         <div className="pt-5">
@@ -18,7 +18,7 @@ function AdminLayout() {
 
 
         {/* input  */}
-        <div className="pt-4 w-full px-3">
+        <div className="pt-3 w-auto px-3">
           <input type="text" placeholder='Search' className=" w-full rounded-sm px-2 py-1 outline-none  border " />
         </div>
         {/* ------- */}
@@ -27,35 +27,47 @@ function AdminLayout() {
 
         {/* links */}
         <div className="mx-3 mt-14">
-          <div onClick={() => navigate('/admin/dashboard')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/dashboard')} className="py-3 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
             <FaBars />
             <span>Dashboars</span>
           </div>
-          <div onClick={() => navigate('/admin/accept')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/accept')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
             <FaBars />
-            <span>Accept</span>
+            <span>Accept/Reject</span>
           </div>
-          <div onClick={() => navigate('/admin/profile')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/profile')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
             <FaBars />
             <span>Manage Profile</span>
           </div>
-          <div className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/attendence')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
             <FaBars />
-            <span>Dashboars</span>
+            <span>Attendence</span>
           </div>
-          <div className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/healthrecords')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
             <FaBars />
-            <span>Dashboars</span>
+            <span>Health Records</span>
           </div>
-          <div className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/admin/salary')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
             <FaBars />
-            <span>Dashboars</span>
+            <span>Salary</span>
+          </div>
+          <div onClick={() => navigate('/admin/communication')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
+            <FaBars />
+            <span>Communication</span>
+          </div>
+          <div onClick={() => navigate('/admin/activity')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
+            <FaBars />
+            <span>Manage Activity</span>
+          </div>
+          <div onClick={() => navigate('/admin/feedback')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
+            <FaBars />
+            <span>Feedback</span>
           </div>
         </div>
         {/*  links */}
       </div>
       <div className="mx-9 py-6">
-        <Outlet />
+        <Outlet/>
       </div>
     </div>
   )

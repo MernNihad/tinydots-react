@@ -1,4 +1,3 @@
-import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 //-----ADMIN-MODULE---START------------------------------------------
@@ -15,6 +14,18 @@ import ManageTeacherProfile from "../admin/manageprofile/ManageTeacherProfile.js
 import ManageChildrenProfile from "../admin/manageprofile/ManageChildrenProfile.jsx";
 import ManageDoctorsProfile from "../admin/manageprofile/ManageDoctorsProfile.jsx";
 import ManageParentsProfile from "../admin/manageprofile/ManageParentsProfile.jsx";
+import Attendence from "../admin/attendence/Attendence.jsx";
+import TeacherAttendence from "../admin/attendence/TeacherAttendence.jsx";
+import ChildrenAttendence from "../admin/attendence/ChildrenAttendence.jsx";
+import Health from "../admin/healthrecords/Health.jsx";
+import ChildrenRecords from "../admin/healthrecords/ChildrenRecords.jsx";
+import Salary from "../admin/salary/Salary.jsx";
+import TeacherSalary from "../admin/salary/TeacherSalary.jsx";
+import DoctorSalary from "../admin/salary/DoctorSalary.jsx";
+import Communication from "../communication/Communication.jsx";
+import TeacherCommunication from "../communication/TeacherCommunication.jsx";
+import DoctorCommunication from "../communication/DoctorCommunication.jsx";
+import ParentsCommunication from "../communication/ParentCommunication.jsx";
 
 //-----ADMIN-MODULE---END------------------------------------------
 
@@ -53,6 +64,20 @@ function Routes() {
           ]
         },
         {
+          path:"attendence",
+          element:<Attendence/>,
+          children:[
+            {
+              path:"teacher-attendence",
+              element: <TeacherAttendence/>
+            },
+            {
+              path:"children-attendence",
+              element: <ChildrenAttendence/>
+            },
+          ]
+        },
+        {
           path:"profile",
           element:<Profile/>,
           children:[
@@ -73,7 +98,50 @@ function Routes() {
               element: <ManageParentsProfile/>
             }
           ]
+        },
+        {
+          path:"healthrecords",
+          element:<Health/>,
+          children:[
+            {
+              path:"children-records",
+              element: <ChildrenRecords/>
+            },
+          ]
+        },
+        {
+          path:"salary",
+          element:<Salary/>,
+          children:[
+            {
+              path:"teacher-salary",
+              element: <TeacherSalary/>
+            },
+            {
+              path:"doctor-salary",
+              element: <DoctorSalary/>
+            },
+          ]
+        },
+        {
+          path:"communication",
+          element:<Communication/>,
+          children:[
+            {
+              path:"teacher-communication",
+              element: <TeacherCommunication/>
+            },
+            {
+              path:"doctor-communication",
+              element: <DoctorCommunication/>
+            },
+            {
+              path:"parents-communication",
+              element: <ParentsCommunication/>
+            },
+          ]
         }
+
       ]
     },
     {
