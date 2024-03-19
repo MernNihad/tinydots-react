@@ -2,7 +2,9 @@ import React from 'react'
 
 function TeacherProfile() {
   return (
-    <div>TeacherProfile</div>
+    <div>
+      
+    </div>
   )
 }
 
