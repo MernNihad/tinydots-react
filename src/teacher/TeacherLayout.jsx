@@ -63,7 +63,7 @@ function TeacherLayout() {
             <FaBars />
             <span>Consultation</span>
           </div>
-          <div onClick={() => navigate('/teacher/teacherattendence')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
+          <div onClick={() => navigate('/teacher/childrenattendence')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
             <FaBars />
             <span>Teacher's Attendence</span>
           </div>
@@ -81,4 +81,4 @@ function TeacherLayout() {
   )
 }
 
-export default TeacherLayout
+export default TeacherLayout 

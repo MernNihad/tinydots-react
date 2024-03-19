@@ -51,7 +51,21 @@ import Doctorcommunication from "../doctor/communication/Doctorcommunication.jsx
 import Doctorchildren from "../doctor/children/Doctorchildren.jsx";
 import Doctorsalary from "../doctor/salary/Doctorsalary.jsx";
 import Doctorfeedback from "../doctor/feedback/Doctorfeedback.jsx";
+import TeacherRegister from "../teacher/TeacherRegister.jsx";
+import TeacherLogin from "../teacher/TeacherLogin.jsx"
+import TeachChildAttendenceForm from "../teacher/children/TeachChildAttendenceForm.jsx";
 //-----ADMIN-MODULE---END------------------------------------------
+
+import UserLayout from "../user/UserLayout.jsx";
+import UserLogin from "../user/UserLogin.jsx";
+import UserRegister from "../user/UserRegister.jsx"
+import UserActivity from "../user/UserActivity.jsx"
+import UserCalender from "../user/UserCalender.jsx"
+import UserChildren from "../user/UserChildren.jsx"
+import UserCommunication from "../user/UserCommunication.jsx"
+import UserFeedback from "../user/UserFeedback.jsx";
+import UserHealthRecords from "../user/UserHealthRecords.jsx"
+import UserProfile from "../user/UserProfile.jsx"
 
 function Routes() {
   const router = createBrowserRouter([
@@ -209,6 +223,23 @@ function Routes() {
       element: <AdminRegister/>,
     },
     {
+      path: "/user-login",
+      element: <UserLogin/>,
+    },
+    {
+      path: "/user-register",
+      element: <UserRegister/>,
+    },
+
+    {
+      path: "/teacher-login",
+      element: <TeacherLogin/>,
+    },
+    {
+      path: "/teacher-register",
+      element: <TeacherRegister/>,
+    },
+    {
       path: "/teacher",
       element: <TeacherLayout/>,
       children:[
@@ -243,9 +274,13 @@ function Routes() {
         {
           path:"healthrecords",
           element:<TeachHealthRecords/>
+        },
+        {
+          path:"childrenattendence",
+          element:<TeachChildAttendenceForm/>
         }
-         
-       
+
+
       ]
     },
     {
@@ -296,6 +331,47 @@ function Routes() {
        
       ]
     },
+
+    {
+      path: "/user",
+      element: <UserLayout/>,
+      children:[
+        {
+          path:"dashboard",
+          element:<h1>dashboard</h1>
+        },
+        {
+          path:"userprofile",
+          element:<UserProfile/>
+        },
+        {
+          path:"children",
+          element:< UserChildren/>
+        },
+        {
+          path:"healthrecords",
+          element:<UserHealthRecords/>
+        },
+        {
+          path:"availabilitycalender",
+          element:<UserCalender/>
+        },
+
+        {
+          path:"usercommunication",
+          element:<UserCommunication/>
+        },
+
+        {
+          path:"activity",
+          element:<UserActivity/>
+        },
+        {
+          path:"userfeedback",
+          element:<UserFeedback/>
+        }
+      ]
+      }
 
 
   ]);
