@@ -26,9 +26,14 @@ import Communication from "../admin/communication/Communication.jsx";
 import TeacherCommunication from "../admin/communication/TeacherCommunication.jsx";
 import DoctorCommunication from "../admin/communication/DoctorCommunication.jsx";
 import ParentsCommunication from "../admin/communication/ParentCommunication.jsx";
+
+import TeacherAdminMessage from "../admin/communication/message/TeacherCommunication.jsx"
+
+
+
 // teacher
 import TeacherLayout from "../teacher/TeacherLayout.jsx";
-import TeacherProfile from "../teacher/profile/TeacherProfile.jsx";
+// import TeacherProfile from "../teacher/profile/TeacherProfile.jsx";
 import TeacherManageActivity from "../teacher/TeacherManageActivity.jsx";
 import TeachChildren from "../teacher/children/TeachChildren.jsx";
 import FeedBack from "../teacher/FeedBack.jsx";
@@ -51,9 +56,12 @@ import Doctorcommunication from "../doctor/communication/Doctorcommunication.jsx
 import Doctorchildren from "../doctor/children/Doctorchildren.jsx";
 import Doctorsalary from "../doctor/salary/Doctorsalary.jsx";
 import Doctorfeedback from "../doctor/feedback/Doctorfeedback.jsx";
+
+import ViewTeacherAttendance from "../teacher/ViewTeacherAttendance.jsx"
+
 import TeacherRegister from "../teacher/TeacherRegister.jsx";
 import TeacherLogin from "../teacher/TeacherLogin.jsx"
-import TeachChildAttendenceForm from "../teacher/children/TeachChildAttendenceForm.jsx";
+import ChildrensAttendance from "../teacher/children/ChildrensAttendance.jsx";
 //-----ADMIN-MODULE---END------------------------------------------
 
 import UserLayout from "../user/UserLayout.jsx";
@@ -66,7 +74,32 @@ import UserCommunication from "../user/UserCommunication.jsx"
 import UserFeedback from "../user/UserFeedback.jsx";
 import UserHealthRecords from "../user/UserHealthRecords.jsx"
 import UserProfile from "../user/UserProfile.jsx"
+import EditTeacher from "../admin/manageprofile/forms/editTeacher";
+import EditChildrenProfile from "../admin/manageprofile/forms/EditChildren.jsx";
+import EditDoctor from "../admin/manageprofile/forms/EditDoctor";
 
+import ParentLogin from "../user/UserLogin.jsx"
+import ParentRegister from "../user/UserRegister.jsx";
+import EditParent from "../admin/manageprofile/forms/EditParent.jsx";
+import AddChildren from "../user/AddChildren.jsx";
+
+
+import ParentAdminMessage from "../admin/communication/message/ParentCommunication.jsx"
+
+// teacher
+import TeacherProfile from "../teacher/TeacherProfile.jsx"
+import TeacherEditProfile from "../teacher/TeacherEditProfile.jsx"
+import TeachChildrenDetailedView from "../teacher/TeachChildrenDetailedView.jsx"
+import TeachChildrenActivity from "../teacher/TeachChildrenActivity.jsx"
+
+import TeachChildrenViewActivity from "../teacher/TeachChildrenViewActivity.jsx"
+
+import TeachChildrenAttendance  from "../teacher/TeachChildrenAttendance.jsx"
+
+import UserHome from "../user/UserHome.jsx"
+import AdminProfile from "../admin/Profile/Profile.jsx"
+
+import AdminEditProfile from "../admin/Profile/AdminEditProfile.jsx"
 function Routes() {
   const router = createBrowserRouter([
 
@@ -76,30 +109,12 @@ function Routes() {
       element: <AdminLayout/>,
       children:[
         {
-          path:"dashboard",
-          element:<h1>dashboard</h1>
+          path:"admin-edit-profile",
+          element:<AdminEditProfile/>
         },
         {
-          path:"accept",
-          element:<Reject/>,
-          children:[
-            {
-              path:"acceptteacher",
-              element:<AcceptTeacher/>
-            },
-            {
-              path:"acceptchildren",
-              element:<AcceptChildren/>
-            },
-            {
-              path:"acceptdoctor",
-              element:<AcceptDoctor/>
-            },
-            {
-              path:"acceptparents",
-              element:<AcceptParents/>
-            }
-          ]
+          path:"profile",
+          element:<AdminProfile/>
         },
         {
           path:"attendence",
@@ -116,26 +131,50 @@ function Routes() {
           ]
         },
         {
-          path:"profile",
+          path:"manage-teachers-profile",
+          element: <ManageTeacherProfile/>
+        },
+
+        {
+          path:"view-attendance/",
+          element: <ViewTeacherAttendance/>
+        },
+        
+        {
+          path:"manage-parents-profile",
+          element: <ManageParentsProfile/>
+        },
+        {
+          path:"manage-doctors-profile",
+          element: <ManageDoctorsProfile/>
+        },
+        {
+          path:"manage-childrens-profile",
+          element: <ManageChildrenProfile/>
+        },
+        // edit teachers
+        {
+          path:"edit-teacher-profile/:id",
+          element: <EditTeacher/>
+        },
+        {
+          path:"edit-parent-profile/:id",
+          element: <EditParent/>
+        },
+        {
+          path:"edit-doctor-profile/:id",
+          element: <EditDoctor/>
+        },
+        {
+          path:"edit-children-profile/:id",
+          element: <EditChildrenProfile/>
+        },
+        
+
+        {
+          path:"manage-profile",
           element:<Profile/>,
-          children:[
-            {
-              path:"manage-teacher-profile",
-              element: <ManageTeacherProfile/>
-            },
-            {
-              path:"manage-children-profile",
-              element: <ManageChildrenProfile/>
-            },
-            {
-              path:"manage-doctors-profile",
-              element: <ManageDoctorsProfile/>
-            },
-            {
-              path:"manage-parents-profile",
-              element: <ManageParentsProfile/>
-            }
-          ]
+
         },
         {
           path:"healthrecords",
@@ -164,21 +203,50 @@ function Routes() {
         {
           path:"communication",
           element:<Communication/>,
+        },
+        {
+          path:"salary",
+          element:<Salary/>,
           children:[
             {
-              path:"teacher-communication",
-              element: <TeacherCommunication/>
+              path:"teacher-salary",
+              element: <TeacherSalary/>
             },
             {
-              path:"doctor-communication",
-              element: <DoctorCommunication/>
-            },
-            {
-              path:"parents-communication",
-              element: <ParentsCommunication/>
+              path:"doctor-salary",
+              element: <DoctorSalary/>
             },
           ]
         },
+        
+        {
+          path:"manage-teachers-communication",
+          element:<TeacherCommunication/>,
+        },
+         {
+          path:"admin-teacher-message/:id",
+          element:<TeacherAdminMessage/>,
+        },
+        {
+          path:"manage-parents-communication",
+          element: <ParentsCommunication/>
+        },
+        {
+          path:"admin-parent-message/:id",
+          element: <ParentAdminMessage/>
+        },
+        {
+          path:"manage-doctors-communication",
+          element: <DoctorCommunication/>
+        },
+        {
+          path:"admin-doctor-message/:id",
+          element: <DoctorCommunication/>
+        },
+        
+        
+        
+        
         {
           path:"activity",
           element:<Activity/>,
@@ -210,35 +278,47 @@ function Routes() {
 
       ]
     },
+
+    // admin login
     {
       path: "/admin-login",
       element: <AdminLogin/>,
     },
-    {
-      path: "/",
-      element: <div>user</div>,
-    },
+
+    // admin register
     {
       path: "/admin-register",
       element: <AdminRegister/>,
     },
+
+
+    // parent login
     {
-      path: "/user-login",
+      path: "/parent-login",
       element: <UserLogin/>,
     },
+    // user-register
     {
-      path: "/user-register",
+      path: "/parent-register",
       element: <UserRegister/>,
     },
 
+
+    // teacher login
     {
       path: "/teacher-login",
       element: <TeacherLogin/>,
     },
+
+
+    // teacher register
     {
       path: "/teacher-register",
       element: <TeacherRegister/>,
     },
+
+
+    // teacher------------------------
     {
       path: "/teacher",
       element: <TeacherLayout/>,
@@ -252,10 +332,40 @@ function Routes() {
           element:<TeacherProfile/>
         },
         {
-          path:"children",
-          element:< TeachChildren/>
+          path:"childrens",
+          element:<TeachChildren/>
         },
         {
+          path:"children/:id",
+          element:< TeachChildrenDetailedView/>
+        },
+        {
+          path:"activity",
+          element:< TeachChildrenActivity/>
+        },
+        {
+          path:"view-activites/:id",
+          element:< TeachChildrenViewActivity/>
+        },
+        {
+          path:"children-attendance",
+          element:<TeachChildrenAttendance/>
+        },
+        
+        
+        
+        {
+          path:"teacher-profile",
+          element:< TeacherProfile/>
+        },
+        {
+          path:"teacher-edit-profile/:id",
+          element:< TeacherEditProfile/>
+        },
+        
+        
+        {
+
           path:"manageactivity",
           element:<TeacherManageActivity/>
         },
@@ -276,21 +386,34 @@ function Routes() {
           element:<TeachHealthRecords/>
         },
         {
-          path:"childrenattendence",
-          element:<TeachChildAttendenceForm/>
-        }
+          path:"attendance",
+          element:<ChildrensAttendance/>
+        },
+        {
+          path:"view-attendance/:id",
+          element: <ViewTeacherAttendance/>
+        },
 
 
       ]
     },
+
+
+    // doctor login
     {
     path:"doctor-login",
     element:<DoctorLogin/>
     },
+
+    // doctor register
     {
       path:"doctor-register",
       element:<DoctorRegister/>
       },
+
+
+
+    // doctor----------------------------
     {
       path: "/doctors",
       element: <DoctorLayout/>,
@@ -332,13 +455,15 @@ function Routes() {
       ]
     },
 
+
+    // parents----------------------------------------
     {
-      path: "/user",
+      path: "/",
       element: <UserLayout/>,
       children:[
         {
-          path:"dashboard",
-          element:<h1>dashboard</h1>
+          path:"",
+          element:<UserHome/>
         },
         {
           path:"userprofile",
@@ -351,6 +476,10 @@ function Routes() {
         {
           path:"healthrecords",
           element:<UserHealthRecords/>
+        },
+        {
+          path:"add-children",
+          element:<AddChildren/>
         },
         {
           path:"availabilitycalender",
@@ -371,7 +500,19 @@ function Routes() {
           element:<UserFeedback/>
         }
       ]
-      }
+      },
+
+      // parents login
+    {
+      path:"parent-login",
+      element:<ParentLogin/>
+      },
+  
+      // parents register
+      {
+        path:"parent-register",
+        element:<ParentRegister/>
+        },
 
 
   ]);

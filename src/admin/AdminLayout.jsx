@@ -1,76 +1,165 @@
-import { FaBars } from "react-icons/fa";
-// import {useNavigate} from 'react-router'
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  FaAngleDown,
+  FaAngleUp,
+  FaCalendarAlt,
+  FaClock,
+  FaStackExchange,
+  FaUser,
+} from "react-icons/fa";
+import { CiCalendar } from "react-icons/ci";
+import { RxAvatar } from "react-icons/rx";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { FaUsers } from "react-icons/fa";
+import { VscFeedback } from "react-icons/vsc";
+import { SlCalender } from "react-icons/sl";
+import { SiYoutubegaming } from "react-icons/si";
+import { MdManageAccounts } from "react-icons/md";
+import { IoIosCash } from "react-icons/io";
+import { MdOutlineHealthAndSafety } from "react-icons/md";
+import { CiChat1 } from "react-icons/ci";
+import { IoIosLogOut } from "react-icons/io";
 
-function AdminLayout() {
+function TeacherLayout() {
+  const avatar =
+    "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 
-  const navigate = useNavigate()
+  const [active, setActive] = useState(false);
+  const [toggleUser, setToggleUser] = useState(false);
+
+  const handleToggleUser = () => setToggleUser(!toggleUser);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const adminLogin = localStorage.getItem("admin-token");
+    const adminDetails = JSON.parse(localStorage.getItem("admin-details"));
+
+    if (!adminLogin || !adminDetails) {
+      navigate("/admin-login", { state: { from: "/protected-route" } });
+    }
+  }, [navigate]);
 
   return (
-    <div className="flex">
-      <div className='p-10 bg-black h-screen text-white'>
-
-        {/* admin title */}
-        <div className="pt-5">
-          <h1 className=" text-center">ADMIN</h1>
-        </div>
-        {/* -------- */}
-
-
-        {/* input  */}
-        <div className="pt-3 w-auto px-3">
-          <input type="text" placeholder='Search' className=" w-full rounded-sm px-2 py-1 outline-none  border " />
-        </div>
-        {/* ------- */}
-
-
-
-        {/* links */}
-        <div className="mx-3 mt-14">
-          <div onClick={() => navigate('/admin/dashboard')} className="py-3 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Dashboars</span>
+    <div>
+      <div className="">
+        <div className="shadow-md py-2.5 flex items-center justify-between mx-4">
+          <div className="flex gap-3 items-center  ">
+            <img src={ JSON.parse(localStorage.getItem("admin-details")).image || avatar} alt="avatar" className="object-cover rounded-full w-12 h-12" />
+            <span className="">Tiny Tots Care</span>
           </div>
-          <div onClick={() => navigate('/admin/accept')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Accept/Reject</span>
-          </div>
-          <div onClick={() => navigate('/admin/profile')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Manage Profile</span>
-          </div>
-          <div onClick={() => navigate('/admin/attendence')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Attendence</span>
-          </div>
-          <div onClick={() => navigate('/admin/healthrecords')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Health Records</span>
-          </div>
-          <div onClick={() => navigate('/admin/salary')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Salary</span>
-          </div>
-          <div onClick={() => navigate('/admin/communication')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Communication</span>
-          </div>
-          <div onClick={() => navigate('/admin/activity')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Manage Activity</span>
-          </div>
-          <div onClick={() => navigate('/admin/feedback')} className="py-2 px-2 flex items-center gap-3 hover:bg-white rounded-lg hover:text-black justify-center">
-            <FaBars />
-            <span>Feedback</span>
+          <div className="flex gap-2 relative">
+            <div
+              className="flex items-center gap-2 hover:border hover:rounded-xl px-3 py-2 cursor-pointer"
+              onClick={handleToggleUser}
+            >
+              <RxAvatar size={30} />
+              <span className=" gap-2 items-center flex">
+                {" "}
+                <span className="uppercase">
+                  {Boolean(localStorage.getItem("admin-details"))
+                    ? JSON.parse(localStorage.getItem("admin-details")).name
+                    : "No Name"}
+                </span>{" "}
+                {toggleUser ? <FaAngleUp /> : <FaAngleDown />}{" "}
+              </span>
+            </div>
+            {toggleUser && (
+              <div
+                className={`top-16 right-0 py-2  absolute max-w-40 w-40 bg-white text-black text-sm`}
+              >
+                <Link to={"/admin/profile"}>
+                  <p
+                    onClick={handleToggleUser}
+                    className="py-1.5 ps-4 hover:bg-gray-300 flex items-center gap-2 text-gray-500 transition-all ease-in-out hover:text-black font-medium"
+                  >
+                    {" "}
+                    <span>
+                      <FaUser />{" "}
+                    </span>{" "}
+                    Profile
+                  </p>
+                  <p
+                    onClick={handleToggleUser}
+                    className="text-red-600 py-1.5 ps-4 hover:bg-gray-300 flex items-center gap-2 text-gray-500 transition-all ease-in-out hover:text-black font-medium"
+                  >
+                    {" "}
+                    <span>
+                      <IoIosLogOut color="red" />{" "}
+                    </span>{" "}
+                    Logout
+                  </p>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
-        {/*  links */}
-      </div>
-      <div className="mx-9 py-6">
-        <Outlet/>
+
+        <div className="flex ">
+          <div className="max-w-60 w-60  px-2.5 pt-5 bg-white shadow-2xl rounded-lg h-screen ">
+            <Link to={"/admin/manage-profile"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <MdManageAccounts size={20} />
+                </span>{" "}
+                Manage Profile{" "}
+              </p>
+            </Link>
+            <Link to={"/admin/communication"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <CiChat1 size={20} />
+                </span>{" "}
+                Communication{" "}
+              </p>
+            </Link>
+            <Link to={"/admin/activity"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <MdOutlineHealthAndSafety size={20} />
+                </span>{" "}
+                Health Records{" "}
+              </p>
+            </Link>
+            <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+              {" "}
+              <span>
+                <IoIosCash size={20} />
+              </span>{" "}
+              Salary{" "}
+            </p>
+            <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+              {" "}
+              <span>
+                <SlCalender size={20} />
+              </span>{" "}
+              Attendance{" "}
+            </p>
+            <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+              {" "}
+              <span>
+                <SiYoutubegaming size={20} />
+              </span>{" "}
+              Activity{" "}
+            </p>
+            <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+              {" "}
+              <span>
+                <VscFeedback size={20} />
+              </span>{" "}
+              Feedback{" "}
+            </p>
+          </div>
+          <div className="mx-4 w-full rounded-lg px-0 ">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AdminLayout
+export default TeacherLayout;

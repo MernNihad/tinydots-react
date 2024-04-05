@@ -1,32 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-multi-date-picker";
 import { Link } from "react-router-dom";
-import {
-  deleteTeacherById,
-  getTeachersRoleAdmin,
-  updateStatus,
-} from "../../api/admin";
+import { getChildrensRoleTeacher } from "../../api/teacher";
 import Spinner from "../../spinner";
-import Modals from "../../components/Modals";
-import { errorToast } from "../../toast";
 
-function ManageTeachersProfile() {
+function ChildrensAttendance() {
   const imageClassName = `className='w-12 h-12 rounded-full my-3'`;
 
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState([]);
-  const [refresh, setRefresh] = useState(false);
-  const [isModalToggle, setIsModalToggle] = useState(false);
-  const [modalData, setModelData] = useState({});
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchAPI();
-  }, [refresh]);
+  }, []);
 
   const fetchAPI = async () => {
     try {
       setLoading(true);
-      const response = await getTeachersRoleAdmin();
+      const response = await getChildrensRoleTeacher(
+        JSON.parse(localStorage.getItem("teacherDetails"))._id
+      );
       setData(response.result);
       setLoading(false);
     } catch (error) {
@@ -34,23 +28,18 @@ function ManageTeachersProfile() {
     }
   };
 
-
+  const attendanceStatus = (status, id) => {};
 
   return (
     <>
       {loading && (
         <div className=" w-full flex justify-center h-96 items-center">
           <Spinner />
-         </div>
+        </div>
       )}
       {!loading && (
         <div className="flex flex-col">
-          <Link
-            to={"/admin/manage-profile"}
-            className="my-5 py-2 px-8 rounded-md bg-slate-500 text-white w-fit"
-          >
-            Back
-          </Link>
+          <Link to={-1}>Back</Link>
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-hidden">
@@ -64,13 +53,8 @@ function ManageTeachersProfile() {
                         Name
                       </th>
                       <th scope="col" className="px-6 py-4">
-                        Status
+                        Attendance
                       </th>
-                      <th scope="col" className="px-6 py-4">
-                        Approved / Reject
-                      </th>
-                      <th scope="col" className="px-6 py-4"></th>
-                      <th scope="col" className="px-6 py-4"></th>
                       <th scope="col" className="px-6 py-4"></th>
                     </tr>
                   </thead>
@@ -89,36 +73,26 @@ function ManageTeachersProfile() {
                               className={imageClassName}
                             />
                           </td>
-                          <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                          <td className="whitespace-nowrap px-6 py-4">
                             {item.name}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {item.isStatus ? "Approved" : "Rejected"}
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                            <Link to={`/admin/admin-teacher-message/${item._id}`}>
-                              <button className="px-8 py-2 rounded-md text-white  border bg-slate-500">
-                                Message
-                              </button>
-                            </Link>
+                            <select
+                              onClick={(e) =>
+                                attendanceStatus(e.target.value, item._id)
+                              }
+                              className="  px-8 py-2 rounded-sm text-black border"
+                            >
+                              <option value="">Select</option>
+                              <option value="present">Present</option>
+                              <option value="absent">Absent</option>
+                            </select>
                           </td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
-
-                {
-                  <div className="">
-                    {isModalToggle && (
-                      <Modals
-                        {...modalData}
-                        setIsModalToggle={setIsModalToggle}
-                        isModalToggle={isModalToggle}
-                      />
-                    )}
-                  </div>
-                }
               </div>
             </div>
           </div>
@@ -128,4 +102,4 @@ function ManageTeachersProfile() {
   );
 }
 
-export default ManageTeachersProfile;
+export default ChildrensAttendance;

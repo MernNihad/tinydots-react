@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { deleteParentById, getParentsRoleAdmin, updateStatus } from "../../api/admin";
-import Spinner from "../../spinner";
-import { errorToast, successToast } from "../../toast";
-import Modals from "../../components/Modals";
+import { getChildrensRoleTeacher } from "../api/teacher";
+import Spinner from "../spinner";
+import Modals from "../components/Modals";
+import { IoMdClose } from "react-icons/io";
+import { addActivityByTeacher } from "../api/admin";
+import { errorToast, successToast } from "../toast";
 
-function ManageTeachersProfile() {
+function TeacherAssignment() {
   const imageClassName = `className='w-12 h-12 rounded-full my-3'`;
 
   const [loading, setLoading] = useState(false);
@@ -14,6 +16,8 @@ function ManageTeachersProfile() {
   const [refresh,setRefresh] = useState(false);
   const [isModalToggle,setIsModalToggle] = useState(false);
   const [modalData,setModelData] = useState({});
+  const [activity,setActivity] = useState('');
+  const [userId,setUserId] = useState('');
   
   React.useEffect(() => {
     fetchAPI();
@@ -22,7 +26,7 @@ function ManageTeachersProfile() {
   const fetchAPI = async () => {
     try {
       setLoading(true);
-      const response = await getParentsRoleAdmin();
+      const response = await getChildrensRoleTeacher();
       setData(response.result);
       setLoading(false);
     } catch (error) {
@@ -30,51 +34,29 @@ function ManageTeachersProfile() {
     }
   };
 
-  const handleApprovedOrReject = async(id,status)=>{
 
-    try {
-
-      if(status ===  ''){
-        return errorToast('Please choose anyone')
-      }
-
-      if(status === 'true'){
-        status = true
-      }
-
-      if(status === 'false'){
-        status = false
-      }
-      
-
-        await updateStatus('parent',id,Boolean(status));
-        setRefresh(!refresh)
-      } catch (error) {
-        errorToast(
-          error.response.data.message || error.message || "something went wrong!"
-        );
-      }
-  }
-
+  
   const handleModelView = (item)=> {
     setModelData(item)
     setIsModalToggle(!isModalToggle)
   }
 
-  const handleDelete = async(id)=>{
+  
+  const handleSubmitActivity = async(e)=>{
+    e.preventDefault()
     try {
-      const status = confirm(`Are you sure delete this one ?`)
-      if(!status) return true
-      const response =  await deleteParentById(id);
-      successToast(response?.message)
-      setRefresh(!refresh)
+        const data = {
+          activityDetails:activity,
+            childrenId:userId
+        }
+        
+        const response = await addActivityByTeacher(data)
+         successToast(response?.message || 'Successfully Added')
+         setIsModalToggle(!isModalToggle)
     } catch (error) {
-      errorToast(
-        error.response.data.message || error.message || "something went wrong!"
-      );
+        errorToast(error.response.data.message || error.message || 'something went wrong!')
     }
-  }
-
+}
   return (
     <>
       {loading && (
@@ -84,7 +66,6 @@ function ManageTeachersProfile() {
       )}
       {!loading && (
         <div className="flex flex-col">
-          <Link to={'/admin/manage-profile'} className="my-5 py-2 px-8 rounded-md bg-slate-500 text-white w-fit">Back</Link>
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-hidden">
@@ -99,9 +80,6 @@ function ManageTeachersProfile() {
                       </th>
                       <th scope="col" className="px-6 py-4">
                         Status
-                      </th>
-                      <th scope="col" className="px-6 py-4">
-                        Approved / Reject
                       </th>
                       <th scope="col" className="px-6 py-4">
                       </th>
@@ -131,33 +109,15 @@ function ManageTeachersProfile() {
                             {item.name}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {item.isStatus ? 'Approved' : 'Rejected'}
+                                <button onClick={()=>{
+                                  handleModelView(item)
+                                  setUserId(item._id)
+                                }} className="px-8 py-2 rounded-md text-white  border bg-slate-500">Assign Activity</button>
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            <select
-                              onClick={(e) =>
-                                handleApprovedOrReject(item._id,e.target.value)
-                              }
-                              className="  px-8 py-2 rounded-sm text-black border"
-                            >
-                              <option value="">Select</option>
-                              <option value="true">Approved</option>
-                              <option value="false">Reject</option>
-                            </select>
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                                <button onClick={()=>handleModelView(item)} className="px-8 py-2 rounded-md text-white  border bg-slate-500">View</button>
-                          </td>
-                          {
-                            // isModalToggle && <Modals {...item} handleModelView={handleModelView}  />
-                          }
-                          <td className="whitespace-nowrap px-6 py-4">
-                              <Link to={`/admin/edit-parent-profile/${item._id}`} state={item} >
-                                <button className="px-8 py-2 rounded-md text-white  border bg-green-400 ">Edit</button>
-                              </Link>
-                          </td>
-                          <td className="whitespace-nowrap px-6 py-4">
-                                <button onClick={()=>handleDelete(item._id)} className="px-8 py-2 rounded-md text-white  border bg-red-500 ">Delete</button>
+                                <Link to={`/teacher/view-activites/${item._id}`}>
+                                  <button  className="px-8 py-2 rounded-md text-white  border bg-slate-500">View Activities</button>
+                                </Link>
                           </td>
                         </tr>
                       );
@@ -165,9 +125,24 @@ function ManageTeachersProfile() {
                   </tbody>
                 </table>
 
-                {   <div className="">
-                  {isModalToggle && <Modals {...modalData} setIsModalToggle={setIsModalToggle} isModalToggle={isModalToggle} />}
-                </div> }
+                <>
+                 { isModalToggle && <div className="absolute  w-[450px] max-w-[450px] h-[170px] px-5 py-0 rounded-lg bg-white shadow-2xl  "style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+                    <div className="flex justify-end">
+                      <h1 className="mb-4 break-words text-2xl">
+                        {" "}
+                        <IoMdClose onClick={()=>setIsModalToggle(!isModalToggle)} />{" "}
+                      </h1>
+                    </div>
+                    <form onSubmit={handleSubmitActivity} className="grid grid-cols-1 gap-3  font-medium">
+                      
+                      <input type="text" placeholder="Activity" value={activity} onChange={(e)=>setActivity(e.target.value)} className="shadow-xl border  py-3 px-3 rounded-md" />
+                      <input type="submit" value={'Submit'} placeholder="Activity" className="bg-black text-white py-3 rounded-md" />
+
+                        
+
+                    </form>
+                  </div>}
+                </>
               </div>
             </div>
           </div>
@@ -177,4 +152,4 @@ function ManageTeachersProfile() {
   );
 }
 
-export default ManageTeachersProfile;
+export default TeacherAssignment;

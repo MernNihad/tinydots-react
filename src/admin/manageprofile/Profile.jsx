@@ -1,33 +1,31 @@
-import { FaBars } from "react-icons/fa"
-import { Outlet, useNavigate } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Profile() {
-    const navigate = useNavigate();
-    return (
-        <div className="">
-            <div className="flex gap-4">
-                <div onClick={() => navigate('/admin/profile/manage-teacher-profile')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Teachers</span>
-                </div>
-                <div onClick={() => navigate('/admin/profile/manage-children-profile')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Children</span>
-                </div>
-                <div onClick={() => navigate('/admin/profile/manage-doctors-profile')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Doctors</span>
-                </div>
-                <div onClick={() => navigate('/admin/profile/manage-parents-profile')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Parents</span>
-                </div>
-            </div>
-            <div className="">
-                <Outlet/>
-            </div>
-        </div>
-    )
+  return (
+    <div className="my-5 flex flex-row justify-start gap-1  text-white ">
+      <Link to={'/admin/manage-teachers-profile'}>
+        <button className="bg-green-500 rounded-lg w-32 px-4 py-2 hover:bg-green-400 border  ">
+          Teachers
+        </button>
+      </Link>
+      <Link to={'/admin/manage-parents-profile'}>
+        <button className="bg-green-500 rounded-lg w-32 px-4 py-2 hover:bg-green-400">
+          Parents
+        </button>
+      </Link>
+      <Link to={'/admin/manage-doctors-profile'}>
+        <button className="bg-green-500 rounded-lg w-32 px-4 py-2 hover:bg-green-400">
+          Doctors
+        </button>
+      </Link>
+      <Link to={'/admin/manage-childrens-profile'}>
+        <button className="bg-green-500 rounded-lg w-32 px-4 py-2 hover:bg-green-400">
+          Childrens
+        </button>
+      </Link>
+    </div>
+  );
 }
 
-export default Profile
+export default Profile;
