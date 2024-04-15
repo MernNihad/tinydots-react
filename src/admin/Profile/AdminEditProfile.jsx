@@ -18,7 +18,7 @@ function TeacherEditProfile() {
     const [qualification,setQualification]=  useState('')
     const [gender,setGender]=  useState('')
     const className = `rounded-md border appearance-none px-4 py-3 outline-none bg-slate-50 shadow-md text-sm`
-    const imageClassName = `className='w-12 h-12 rounded-full my-3'`
+    const imageClassName = `w-12 h-12 rounded-full my-3`
     const navigate = useNavigate();
 
     const {id} = useParams();
@@ -50,7 +50,7 @@ function TeacherEditProfile() {
              console.log(response.result)
              localStorage.setItem("admin-details",JSON.stringify(response?.result))
              navigate('/admin/profile')
-             window.location.reload()
+            //  window.location.reload()
         } catch (error) {
             errorToast(error.response.data.message || error.message || 'something went wrong!')
         }

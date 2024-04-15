@@ -7,7 +7,7 @@ import { errorToast } from "../toast";
 import { updateAttendanceByTeacher, updateStatus } from "../api/admin";
 
 function TeachChildrenAttendance() {
-  const imageClassName = `className='w-12 h-12 rounded-full my-3'`;
+  const imageClassName = `w-12 h-12 rounded-full my-3`;
 
   const [loading, setLoading] = useState(false);
 
@@ -62,13 +62,13 @@ function TeachChildrenAttendance() {
   return (
     <>
       {loading && (
-        <div className=" w-full flex justify-center h-96 items-center">
+        <div className=" w-full flex justify-center h-screen items-center">
           <Spinner />
         </div>
       )}
       {!loading && (
   <div className="flex flex-col">
-    <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div className="overflow-x-auto max-h-[500px]">
       <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
         <div className="overflow-hidden">
           <table className="min-w-full text-center text-sm font-light text-surface dark:text-black uppercase">
@@ -83,18 +83,15 @@ function TeachChildrenAttendance() {
                 <th scope="col" className="px-6 py-4">
                   Status
                 </th>
-                <th scope="col" className="px-6 py-4">
-                </th>
+
                 <th scope="col" className="px-6 py-4">
 
-                </th>
-                <th scope="col" className="px-6 py-4">
                 </th>
               </tr>
             </thead>
             <tbody>
               {data.map((item, index) => {
-                const attendanceForCurrentDay = item.attendance.find(att => {
+                const attendanceForCurrentDay = item?.attendance?.find(att => {
                   const attendanceDate = new Date(att.date);
                   const currentDate = new Date();
                   return (
@@ -116,7 +113,7 @@ function TeachChildrenAttendance() {
                         className={imageClassName}
                       />
                     </td>
-                    <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                    <td className="capitalize overflow-x-auto max-w-44 whitespace-nowrap px-6 py-4">
                       {item.student.name}
                     </td>
                     {!attendanceForCurrentDay && (
@@ -134,7 +131,7 @@ function TeachChildrenAttendance() {
                       </td>
                     )}
                     <Link to={`/teacher/view-attendance/${item.student._id}`}>
-                      <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                      <td className="overflow-x-auto max-w-44 whitespace-nowrap px-6 py-4">
                         View Attendance
                       </td>
                     </Link>

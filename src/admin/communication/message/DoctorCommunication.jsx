@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Spinner from "../../../spinner";
-import { errorToast, successToast } from "../../../toast";
-import {
-  getChatsByIdAdminRole,
-  sentSingleMessageRoleAdmin,
-} from "../../../api/admin";
 import { useNavigate, useParams } from "react-router-dom";
+import { getChatsByIdAdminRole, sentSingleMessageRoleAdmin } from "../../../api/admin";
+import { errorToast, successToast } from "../../../toast";
+import Spinner from "../../../spinner";
 
-function DoctorCommunication() {
+function ParentCommunication() {
   const [loading, setLoading] = useState(false);
   const [message, setSentMessage] = useState("");
   const [refresh, setRefresh] = useState(false);
@@ -88,4 +85,4 @@ function DoctorCommunication() {
   );
 }
 
-export default DoctorCommunication;
+export default ParentCommunication;

@@ -1,72 +1,164 @@
-import { FaBars } from "react-icons/fa";
-// import {useNavigate} from 'react-router'
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  FaAngleDown,
+  FaAngleUp,
+  FaCalendarAlt,
+  FaClock,
+  FaStackExchange,
+  FaUser,
+} from "react-icons/fa";
+import { CiCalendar } from "react-icons/ci";
+import { RxAvatar } from "react-icons/rx";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { FaUsers } from "react-icons/fa";
+import { MdManageAccounts, MdOutlineFeedback } from "react-icons/md";
+import { IoIosCash, IoIosLogOut } from "react-icons/io";
+import { MdSchedule } from "react-icons/md";
+function TeacherLayout() {
+  const avatar =
+    "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png";
 
-function DoctorLayout() {
+  const [active, setActive] = useState(false);
+  const [toggleUser, setToggleUser] = useState(false);
 
-  const navigate = useNavigate()
+  const handleToggleUser = () => setToggleUser(!toggleUser);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const doctorToken = localStorage.getItem("doctor-token");
+    const doctorDetails = localStorage.getItem("doctor-details");
+
+    if (!doctorToken || !doctorDetails) {
+      navigate("/doctor-login", { state: { from: "/protected-route" } });
+    }
+  }, [navigate]);
 
   return (
-    <div className="flex">
-      <div className='max-w-64 bg-black h-screen text-white'>
+    <div>
+      <div className="">
+        <div className="shadow-md py-2.5 flex items-center justify-between mx-4">
+          <div className="flex gap-3 items-center  ">
+            <img src={localStorage.getItem("doctor-details") && JSON.parse(localStorage.getItem("doctor-details"))?.image } alt="avatar" className="rounded-full w-12 h-12" />
+            <span className="">Tiny Tots Care</span>
 
-        {/* teacher title */}
-        <div className="pt-5">
-          <h1 className=" text-center">Doctor</h1>
+          </div>
+          <div className="flex gap-2 relative">
+            <div
+              className="flex items-center gap-2 hover:border hover:rounded-xl px-3 py-2 cursor-pointer"
+              onClick={handleToggleUser}
+            >
+              <RxAvatar size={30} />
+              <span className=" gap-2 items-center flex">
+                {" "}
+                <span className="uppercase">
+                  { localStorage.getItem("doctor-details") && JSON.parse(localStorage.getItem("doctor-details"))?.name}
+                </span>{" "}
+                {toggleUser ? <FaAngleUp /> : <FaAngleDown />}{" "}
+              </span>
+            </div>
+            {toggleUser && (
+              <div
+                className={`top-16 right-0 py-2  absolute max-w-40 w-40 bg-white text-black text-sm`}
+              >
+                <Link to={"/doctors/doctor-profile"}>
+                  <p
+                    onClick={handleToggleUser}
+                    className="py-1.5 ps-4 hover:bg-gray-300 flex items-center gap-2 text-gray-500 transition-all ease-in-out hover:text-black font-medium"
+                  >
+                    {" "}
+                    <span>
+                      <FaUser />{" "}
+                    </span>{" "}
+                    Profile
+                  </p>
+                  <p
+                    onClick={()=>{
+                      
+                      localStorage.removeItem("doctor-details")
+                      localStorage.removeItem("doctor-token")
+                      navigate('/doctor-login')
+                      window.location.reload()
+                    }}
+                    className="text-red-600 py-1.5 ps-4 hover:bg-gray-300 flex items-center gap-2 text-gray-500 transition-all ease-in-out hover:text-black font-medium"
+                  >
+                    {" "}
+                    <span>
+                      <IoIosLogOut color="red" />{" "}
+                    </span>{" "}
+                    Logout
+                  </p>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
-        {/* -------- */}
 
+        <div className="flex ">
+          <div className="max-w-60 w-60  px-2.5 pt-5 bg-white shadow-2xl rounded-lg h-screen ">
+            <Link to={"/doctors/doctor-children"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <FaUser size={20} />
+                </span>{" "}
+                Childrens{" "}
+              </p>
+            </Link>
+            <Link to={"/doctors/health-records"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <MdManageAccounts size={20} />
+                </span>{" "}
+                Health Records{" "}
 
-        {/* input  */}
-        <div className="pt-4 w-full px-3">
-          <input type="text" placeholder='Search' className=" w-full rounded-sm px-2 py-1 outline-none  border " />
+              </p>
+            </Link>
+            <Link to={"/doctors/consultation-schedule"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <MdSchedule size={20} />
+                </span>{" "}
+                Consultation Schedule{" "}
+              </p>
+            </Link>
+            <Link to={"/doctors/salary"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <IoIosCash size={20} />
+                </span>{" "}
+                Salary{" "}
+              </p>
+            </Link>
+            <Link to={'/doctors/doctor-communication'}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <FaStackExchange size={20} />
+                </span>{" "}
+                Communication{" "}
+              </p>
+            </Link>
+            <Link to={'/doctors/doctor-feedback'}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <MdOutlineFeedback size={20} />
+                </span>{" "}
+                Feedback{" "}
+              </p>
+            </Link>
+          </div>
+          <div className="mx-4 w-full rounded-lg px-0 ">
+            <Outlet />
+          </div>
         </div>
-        {/* ------- */}
-
-
-
-        {/* links */}
-        <div className="mx-3 mt-14">
-        <div className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Dashboard</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-profile')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Profile</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-consultation')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Consultaion</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-healthrecords')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Health Records</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-communication')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Communication</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-children')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Children</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-salary')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Salary</span>
-          </div>
-          <div onClick={() => navigate('/doctors/doctor-feedback')} className="py-3 flex items-center gap-3 hover:bg-white hover:text-black justify-center">
-            <FaBars />
-            <span>Feedback</span>
-          </div>
-        </div>
-        {/*  links */}
-      </div>
-      <div className="mx-9 py-6">
-        <Outlet />
       </div>
     </div>
-  )
+  );
 }
 
-export default DoctorLayout
+export default TeacherLayout;

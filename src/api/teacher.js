@@ -12,6 +12,43 @@ export const getChildrensRoleTeacher = async()=>{
     throw error || 'An error occurred during signup.';
   }
   }
+  export const getHealthRecords = async(id)=>{
+    try {
+      const response = await api.get(`/gethealthrecords/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error || 'An error occurred during signup.';
+    }
+    }
+  
+
+export const getChildrensAllByStatusTrueOnly = async()=>{
+  try {
+    const response = await api.get('/all-childrens/');
+    return response.data;
+  } catch (error) {
+    throw error || 'An error occurred during signup.';
+  }
+  }
+
+  export const getChildrensAllByStatusaLL = async()=>{
+    try {
+      const response = await api.get('/all-childrens-all/');
+      return response.data;
+    } catch (error) {
+      throw error || 'An error occurred during signup.';
+    }
+    }
+  
+  
+  export const getChildrensScheduleByDoctor = async()=>{
+    try {
+      const response = await api.get('/schedules-by-id/');
+      return response.data;
+    } catch (error) {
+      throw error || 'An error occurred during signup.';
+    }
+    }
 
 
   // progress
@@ -23,6 +60,15 @@ export const getChildrensRoleTeacher = async()=>{
       throw error || 'An error occurred during signup.';
     }
     }
+
+    export const getTeacherAttendancesById = async(id)=>{
+      try {
+        const response = await api.get(`/by-attendance-byid/${id}`);
+        return response.data;
+      } catch (error) {
+        throw error || 'An error occurred during signup.';
+      }
+      }
 
   
 

@@ -10,8 +10,8 @@ function UserLayout() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const Token = localStorage.getItem("token");
-    const Details = localStorage.getItem("details");
+    const Token = localStorage.getItem("parent-token")
+    const Details = localStorage.getItem("parent-details")
 
     console.log(Token,Details);
     if (!Token || !Details) {

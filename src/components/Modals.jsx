@@ -1,7 +1,7 @@
 import React from "react";
 import { IoMdClose } from "react-icons/io";
 
-function Modals({setIsModalToggle,isModalToggle,name,email,password,age,number,gender,image,housename,statusField = true,place,city,state,qualification,isStatus}) {
+function Modals({setIsModalToggle,isModalToggle,name,email,password,age,number,amount,gender,image,housename,statusField = true,place,city,state,qualification,isStatus,Bankinfo = []}) {
   return (
     <>
       <div
@@ -11,7 +11,7 @@ function Modals({setIsModalToggle,isModalToggle,name,email,password,age,number,g
         <div className="flex justify-end">
           <h1 className="mb-4 break-words text-2xl">
             {" "}
-            <IoMdClose onClick={()=>setIsModalToggle(!isModalToggle)} />{" "}
+            <IoMdClose className="cursor-pointer" onClick={()=>setIsModalToggle(!isModalToggle)} />{" "}
           </h1>
         </div>
         <div className="grid grid-cols-2 gap-3  font-medium">
@@ -29,7 +29,19 @@ function Modals({setIsModalToggle,isModalToggle,name,email,password,age,number,g
             <p className=" px-3 py-3 border">State : {state}</p>
             <p className=" px-3 py-3 border">City : {city}</p>
             
-            <p className=" px-3 py-3 border">Qualification : {qualification}</p>
+            { qualification && <p className=" px-3 py-3 border">Qualification : {qualification}</p>}
+
+            {Bankinfo[0]?.length > 0 && <>
+            
+            <p>Bank Details :</p>
+            <p className=" px-3 py-3 border">IFSC Code : {Bankinfo[0]?.IFSCCode}</p>
+            <p className=" px-3 py-3 border">Account Number : {Bankinfo[0]?.accountNumber}</p>
+            <p className=" px-3 py-3 border">Branch : {Bankinfo[0]?.branch}</p>
+            </>
+            }
+             { amount && <p className=" px-3 py-3 border">Fee : {amount}</p>}
+
+
             { statusField && <p className=" px-3 py-3 border">Status : {isStatus ? 'Approved' : 'Rejected'}</p>}
 
         </div>

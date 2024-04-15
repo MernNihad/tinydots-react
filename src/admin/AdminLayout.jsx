@@ -19,6 +19,7 @@ import { IoIosCash } from "react-icons/io";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { CiChat1 } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
+import { PiContactlessPayment } from "react-icons/pi";
 
 function TeacherLayout() {
   const avatar =
@@ -45,8 +46,8 @@ function TeacherLayout() {
       <div className="">
         <div className="shadow-md py-2.5 flex items-center justify-between mx-4">
           <div className="flex gap-3 items-center  ">
-            <img src={ JSON.parse(localStorage.getItem("admin-details")).image || avatar} alt="avatar" className="object-cover rounded-full w-12 h-12" />
-            <span className="">Tiny Tots Care</span>
+            <img onClick={()=>navigate('/admin')} src={ JSON.parse(localStorage.getItem("admin-details"))?.image || avatar} alt="avatar" className="cursor-pointer object-cover rounded-full w-12 h-12" />
+            <span onClick={()=>navigate('/admin')} className="cursor-pointer">Tiny Tots Care</span>
           </div>
           <div className="flex gap-2 relative">
             <div
@@ -80,7 +81,12 @@ function TeacherLayout() {
                     Profile
                   </p>
                   <p
-                    onClick={handleToggleUser}
+                    onClick={()=>{
+                      localStorage.removeItem("admin-details")
+                      localStorage.removeItem("admin-token")
+                      navigate('/admin-login')
+                      window.location.reload()
+                    }}
                     className="text-red-600 py-1.5 ps-4 hover:bg-gray-300 flex items-center gap-2 text-gray-500 transition-all ease-in-out hover:text-black font-medium"
                   >
                     {" "}
@@ -106,6 +112,11 @@ function TeacherLayout() {
                 Manage Profile{" "}
               </p>
             </Link>
+
+            
+
+            
+            
             <Link to={"/admin/communication"}>
               <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
                 {" "}
@@ -115,7 +126,7 @@ function TeacherLayout() {
                 Communication{" "}
               </p>
             </Link>
-            <Link to={"/admin/activity"}>
+            <Link to={"/admin/health-records"}>
               <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
                 {" "}
                 <span>
@@ -124,6 +135,7 @@ function TeacherLayout() {
                 Health Records{" "}
               </p>
             </Link>
+            <Link to={'/admin/salary'}>
             <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
               {" "}
               <span>
@@ -131,6 +143,8 @@ function TeacherLayout() {
               </span>{" "}
               Salary{" "}
             </p>
+            </Link>
+            <Link to={'/admin/admin-attendance'}>
             <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
               {" "}
               <span>
@@ -138,6 +152,8 @@ function TeacherLayout() {
               </span>{" "}
               Attendance{" "}
             </p>
+            </Link>
+            <Link to={'/admin/activity'}>
             <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
               {" "}
               <span>
@@ -145,6 +161,9 @@ function TeacherLayout() {
               </span>{" "}
               Activity{" "}
             </p>
+            </Link>
+            <Link to={'/admin/feedback'}>
+
             <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
               {" "}
               <span>
@@ -152,6 +171,17 @@ function TeacherLayout() {
               </span>{" "}
               Feedback{" "}
             </p>
+            </Link>
+
+            <Link to={"/admin/fee-management"}>
+              <p className="px-3 hover:ps-5  flex transition-all ease-in-out duration-200 cursor-pointer items-center gap-3 hover:bg-green-600 hover:font-medium hover:text-white py-4 rounded-lg">
+                {" "}
+                <span>
+                  <PiContactlessPayment size={20} />
+                </span>{" "}
+                Fee Management{" "}
+              </p>
+            </Link>
           </div>
           <div className="mx-4 w-full rounded-lg px-0 ">
             <Outlet />

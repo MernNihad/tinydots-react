@@ -17,11 +17,15 @@ function TeacherEditProfile() {
     const [state,setState]=  useState('')
     const [qualification,setQualification]=  useState('')
     const [gender,setGender]=  useState('')
+    const [ifscCode,setIfscCode]=  useState('')
+    const [accountNumber,setAccountNumber]=  useState('')
+    const [branch,setBranch]=  useState('')
+    const [bankId,setBankId]=  useState('')
     const className = `rounded-md border appearance-none px-4 py-3 outline-none bg-slate-50 shadow-md text-sm`
     const imageClassName = `className='w-12 h-12 rounded-full my-3'`
     const navigate = useNavigate();
 
-    const {id} = useParams();
+    const {id,name:userParamasName} = useParams();
 
     const [loading,setLoading] = useState(false)
 
@@ -42,7 +46,11 @@ function TeacherEditProfile() {
                 city,
                 state,
                 qualification,
-                gender
+                gender,
+                branch,
+                IFSCCode:ifscCode,
+                accountNumber,
+                bankId,
             }
             
             const response = await updateTeacherByIdAdmin(data,id)
@@ -74,13 +82,39 @@ function TeacherEditProfile() {
             setState(response.result.state),
             setQualification(response.result.qualification), 
             setGender(response.gender)
+            setIfscCode(response.result.Bankinfo[0]?.IFSCCode)
+            setAccountNumber(response.result.Bankinfo[0]?.accountNumber)
+            setBranch(response.result.Bankinfo[0]?.branch)
+            setBankId(response.result.Bankinfo[0]?._id)
             setLoading(false);
         } catch (error) {
             setLoading(false);
         }
 
     }
+
+
+ const breadCrubmberClassName = "hover:text-slate-500 hover:underline";
+ const breadCrumbContainer = "flex gap-2 text-[14px] my-3";
+ const goToDashBoard = `/admin/manage-profile`;
+ const goToParent = `/admin/manage-teachers-profile`
+ const goToCurrent = `/admin/edit-teacher-profile/${id}/${userParamasName}`
+
+ 
   return (
+    <>
+    <ul className={breadCrumbContainer}>
+        <li className={`${breadCrubmberClassName}`}>
+          <Link to={goToDashBoard}>Main</Link> <span> / </span>
+        </li>
+        <li className={`${breadCrubmberClassName}`}>
+          <Link to={goToParent}>Teachers</Link> <span> / </span>
+        </li>
+        <li className={`${breadCrubmberClassName}`}>
+          <Link to={goToCurrent}>{userParamasName}</Link>
+        </li>
+      </ul>
+    
     <form className='mt-8' onSubmit={handleSubmit}>
         <h1 className='text-xl ms-0 mb-4'>Edit Profile</h1>
         <div className="grid grid-cols-2 gap-1 w-[800px] ">
@@ -116,11 +150,15 @@ function TeacherEditProfile() {
                 <input type="radio" name='gender'className='ms-2'  value={'others'} checked={gender === 'others'} onChange={(e)=>setGender(e.target.value)} />
 
             </div>
+            <input type="number" placeholder='Account Number' value={accountNumber} onChange={(e)=>setAccountNumber(e.target.value)} className={className}/>
+            <input type="text" placeholder='Branch' value={branch} onChange={(e)=>setBranch(e.target.value)} className={className}/>
+            <input type="text" placeholder='IFSC Code' value={ifscCode} onChange={(e)=>setIfscCode(e.target.value)} className={className}/>
         </div>
         <button type='submit' className=' w-fit px-10 py-2 mt-2 rounded-md bg-green-500 text-white tex-sm font-medium'>Submit</button>
         <button onClick={()=>navigate(-1)} type='button' className=' w-fit px-10 py-2 mt-2 rounded-md bg-gray-300 ms-2 text-black tex-sm font-medium'>Back</button>
         
     </form>
+    </>
   )
 }
 

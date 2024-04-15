@@ -7,7 +7,7 @@ import Spinner from "../../spinner";
 import Modals from "../../components/Modals";
 
 function ManageTeachersProfile() {
-  const imageClassName = `className='w-12 h-12 rounded-full my-3'`;
+  const imageClassName = `w-12 h-12 rounded-full my-3'`;
 
   const [loading, setLoading] = useState(false);
 
@@ -41,13 +41,13 @@ function ManageTeachersProfile() {
   return (
     <>
       {loading && (
-        <div className=" w-full flex justify-center h-96 items-center">
+        <div className=" w-full flex justify-center h-screen items-center">
           <Spinner />
         </div>
       )}
       {!loading && (
         <div className="flex flex-col">
-          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="overflow-x-auto max-h-[500px] ">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-hidden">
                 <table className="min-w-full text-center text-sm font-light text-surface dark:text-black uppercase">
@@ -64,11 +64,7 @@ function ManageTeachersProfile() {
                       </th>
                       <th scope="col" className="px-6 py-4">
                       </th>
-                      <th scope="col" className="px-6 py-4">
 
-                      </th>
-                      <th scope="col" className="px-6 py-4">
-                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -86,7 +82,7 @@ function ManageTeachersProfile() {
                               className={imageClassName}
                             />
                           </td>
-                          <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                          <td className="overflow-x-auto max-w-44 whitespace-nowrap px-6 py-4">
                             {item.name}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">

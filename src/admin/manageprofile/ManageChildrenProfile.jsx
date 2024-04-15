@@ -6,7 +6,7 @@ import { errorToast, successToast } from "../../toast";
 import Modals from "../../components/Modals";
 
 function ManageTeachersProfile() {
-  const imageClassName = `className='w-12 h-12 rounded-full my-3'`;
+  const imageClassName = `w-12 h-12 rounded-full my-3`;
 
   const [loading, setLoading] = useState(false);
 
@@ -76,6 +76,15 @@ function ManageTeachersProfile() {
     }
   }
 
+
+
+ const breadCrubmberClassName = "hover:text-slate-500 hover:underline";
+ const breadCrumbContainer = "flex gap-2 text-[14px] my-3";
+ const goToDashBoard = `/admin/manage-profile`;
+ const goToParent = `/admin/manage-childrens-profile`
+ 
+ 
+
   return (
     <>
       {loading && (
@@ -84,12 +93,24 @@ function ManageTeachersProfile() {
         </div>
       )}
       {!loading && (
+
+
         <div className="flex flex-col">
-          <Link to={'/admin/manage-profile'} className="my-5 py-2 px-8 rounded-md bg-slate-500 text-white w-fit">Back</Link>
-          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div className="overflow-hidden">
-                <table className="min-w-full text-center text-sm font-light text-surface dark:text-black uppercase">
+
+
+<ul className={breadCrumbContainer}>
+        <li className={`${breadCrubmberClassName}`}>
+          <Link to={goToDashBoard}>Main</Link> <span> / </span>
+        </li>
+        <li className={`${breadCrubmberClassName}`}>
+          <Link to={goToParent}>Childrens</Link>
+        </li>
+      </ul>
+
+      <div className="overflow-x-auto max-h-[500px]">
+            <div className="inline-block min-w-full py-2 ">
+              <div className="overflow-auto">
+                <table className=" min-w-full text-center text-sm font-light text-surface dark:text-black uppercase">
                   <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
                     <tr>
                       <th scope="col" className="px-6 py-4">
@@ -116,7 +137,7 @@ function ManageTeachersProfile() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="">
                     {data.map((item, index) => {
                       return (
                         <tr
@@ -131,10 +152,10 @@ function ManageTeachersProfile() {
                               className={imageClassName}
                             />
                           </td>
-                          <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                          <td className="overflow-x-auto capitalize max-w-44 whitespace-nowrap px-6 py-4">
                             {item.name}
                           </td>
-                          <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                          <td className="overflow-x-auto max-w-44 whitespace-nowrap px-6 py-4">
                             {item?.parentInfo[0]?.name}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
@@ -159,7 +180,7 @@ function ManageTeachersProfile() {
                             // isModalToggle && <Modals {...item} handleModelView={handleModelView}  />
                           }
                           <td className="whitespace-nowrap px-6 py-4">
-                              <Link to={`/admin/edit-children-profile/${item._id}`} state={item} >
+                              <Link to={`/admin/edit-children-profile/${item._id}/${item.name}`} state={item} >
                                 <button className="px-8 py-2 rounded-md text-white  border bg-green-400 ">Edit</button>
                               </Link>
                           </td>

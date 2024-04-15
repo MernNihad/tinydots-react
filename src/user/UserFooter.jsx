@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function UserFooter() {
   return (
@@ -111,8 +112,8 @@ function UserFooter() {
         </div>
 
         <div className="w-full bg-black/5 p-4 text-center">
-          © 2023 Copyright:
-          <a href="https://tw-elements.com/">TW Elements</a>
+          © 2024 Copyright 
+          <Link to={'/'}>Tiny Tots Care</Link>
         </div>
       </footer>
     </div>

@@ -1,31 +1,57 @@
-import { FaBars } from "react-icons/fa"
-import { Outlet, useNavigate } from "react-router-dom"
+import React, { useState } from "react";
+import Spinner from "../../spinner";
+import { getFeedback } from "../../api/admin";
 
 function AdminFeedback() {
-    const navigate = useNavigate();
-    return (
-        <div className="">
-            <div className="flex gap-4">
-                <div onClick={() => navigate('/admin/feedback/teachers-feedback')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Teachers</span>
-                </div>
-                <div onClick={() => navigate('/admin/feedback/parents-feedback')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Parents</span>
-                </div>
-                <div onClick={() => navigate('/admin/feedback/Doctors-feedback')} className="border-2 border-black px-6 py-1 flex gap-3 hover:bg-zinc-400 rounded-lg">
-                    <FaBars className="mt-1" />
-                    <span>Doctors</span>
-                </div>
+  const paragrapClassName = `my-1 shadow-md px-4 py-3 rounded-md text-slate-700 text-[15px]`;
+  const titleClassName = `text-slate-900 text-[18px]`;
+  const mainDivClassName = `mx-3 my-5 max-h-[530px] overflow-auto`;
+  const FlexCenterStyleClassName = `flex w-full h-screen justify-center items-center`
 
-            </div>
-            <div className="">
-                <Outlet/>
-            </div>
-        </div>
-    )
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
+  React.useEffect(() => {
+    fetchAPI();
+  }, []);
+
+  const fetchAPI = async () => {
+    try {
+      setLoading(true);
+      const response = await getFeedback();
+      setData(response.result);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+     { loading ? <div className={FlexCenterStyleClassName}>
+     <Spinner/>
+     </div> : <div className={mainDivClassName}>
+        <h1 className={titleClassName}>Feedbacks</h1>
+
+
+        {data.length > 0 &&
+          data.map(({ description: message ,_id}) => {
+            return (
+              <p className={paragrapClassName} key={_id}>
+                {message}
+              </p>
+            );
+          })}
+
+        {data.length === 0 && (
+          <div className={FlexCenterStyleClassName}>
+            <p>No recoreds!</p>
+          </div>
+        )}
+      </div>}
+    </>
+  );
 }
 
-export default  AdminFeedback
-
+export default AdminFeedback;

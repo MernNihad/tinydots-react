@@ -23,6 +23,20 @@ function ParentRegister() {
     
     const handleSubmit = async(e)=>{
         e.preventDefault()
+
+
+        if(!name) return errorToast('Name is required!')
+        if(!email) return errorToast('Email is required!')
+        if(!password) return errorToast('Password is required!')
+        if(!age) return errorToast('Age is required!')
+        if(!number) return errorToast('Number is required!')
+        if(!housename) return errorToast('Housename is required!')
+        if(!place) return errorToast('Place is required!')
+        if(!city) return errorToast('City is required!')
+        if(!state) return errorToast('state is required!')
+        if(!qualification) return errorToast('Qualification is required!')
+        if(!gender) return errorToast('gender is required!')
+
         try {
             const data = {
                 name,
@@ -264,6 +278,7 @@ function ParentRegister() {
                     <option value="kerala">Kerala</option>
                     <option value="karanataka">Karnataka</option>
                     <option value="tamilnadu">Tamil Nadu</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
 
@@ -295,9 +310,7 @@ function ParentRegister() {
             >
                 Submit
             </button>
-            <p className="text-sm font-light text-black dark:text-black">
-                            Already have an account? <Link to={'/parent-login'} className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign In</Link>
-                        </p>
+
 
         </form>
 

@@ -18,8 +18,12 @@ function TeacherEditProfile() {
     const [qualification,setQualification]=  useState('')
     const [gender,setGender]=  useState('')
     const className = `rounded-md border appearance-none px-4 py-3 outline-none bg-slate-50 shadow-md text-sm`
-    const imageClassName = `className='w-12 h-12 rounded-full my-3'`
+    const imageClassName = `w-12 h-12 rounded-full my-3`
     const navigate = useNavigate();
+    const [ifscCode,setIfscCode]=  useState('')
+    const [accountNumber,setAccountNumber]=  useState('')
+    const [branch,setBranch]=  useState('')
+    const [bankId,setBankId]=  useState('')
 
     const {id} = useParams();
 
@@ -42,12 +46,17 @@ function TeacherEditProfile() {
                 city,
                 state,
                 qualification,
-                gender
+                gender,branch,
+                IFSCCode:ifscCode,
+                accountNumber,
+                bankId,
             }
         
             const response = await updateTeacherByIdTeacher(data,JSON.parse(localStorage.getItem("teacher-details"))._id)
              successToast(response?.message || 'Successfully Edited')
+             localStorage.setItem("teacher-details",JSON.stringify(response?.result))
              navigate('/teacher/teacher-profile')
+             
         } catch (error) {
             errorToast(error.response.data.message || error.message || 'something went wrong!')
         }
@@ -73,6 +82,10 @@ function TeacherEditProfile() {
             setCity(response.result.city),
             setState(response.result.state),
             setQualification(response.result.qualification), 
+            setIfscCode(response.result.Bankinfo[0]?.IFSCCode)
+            setAccountNumber(response.result.Bankinfo[0]?.accountNumber)
+            setBranch(response.result.Bankinfo[0]?.branch)
+            setBankId(response.result.Bankinfo[0]?._id)
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -116,6 +129,10 @@ function TeacherEditProfile() {
                 <input type="radio" name='gender'className='ms-2'  value={'others'} checked={gender === 'others'} onChange={(e)=>setGender(e.target.value)} />
 
             </div>
+
+            <input type="number" placeholder='Account Number' value={accountNumber} onChange={(e)=>setAccountNumber(e.target.value)} className={className}/>
+            <input type="text" placeholder='Branch' value={branch} onChange={(e)=>setBranch(e.target.value)} className={className}/>
+            <input type="text" placeholder='IFSC Code' value={ifscCode} onChange={(e)=>setIfscCode(e.target.value)} className={className}/>
         </div>
         <button type='submit' className=' w-fit px-10 py-2 mt-2 rounded-md bg-green-500 text-white tex-sm font-medium'>Submit</button>
         <button onClick={()=>navigate(-1)} type='button' className=' w-fit px-10 py-2 mt-2 rounded-md bg-gray-300 ms-2 text-black tex-sm font-medium'>Back</button>

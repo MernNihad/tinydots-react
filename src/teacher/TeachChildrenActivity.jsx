@@ -8,7 +8,7 @@ import { addActivityByTeacher } from "../api/admin";
 import { errorToast, successToast } from "../toast";
 
 function TeacherAssignment() {
-  const imageClassName = `className='w-12 h-12 rounded-full my-3'`;
+  const imageClassName = `w-12 h-12 rounded-full my-3`;
 
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +44,8 @@ function TeacherAssignment() {
   
   const handleSubmitActivity = async(e)=>{
     e.preventDefault()
+
+    if(!activity) return errorToast('Activity is required')
     try {
         const data = {
           activityDetails:activity,
@@ -60,13 +62,13 @@ function TeacherAssignment() {
   return (
     <>
       {loading && (
-        <div className=" w-full flex justify-center h-96 items-center">
+        <div className="w-full flex justify-center h-screen items-center">
           <Spinner />
         </div>
       )}
       {!loading && (
         <div className="flex flex-col">
-          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="overflow-x-auto max-h-[500px]">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-hidden">
                 <table className="min-w-full text-center text-sm font-light text-surface dark:text-black uppercase">
@@ -79,15 +81,10 @@ function TeacherAssignment() {
                         Name
                       </th>
                       <th scope="col" className="px-6 py-4">
-                        Status
                       </th>
                       <th scope="col" className="px-6 py-4">
                       </th>
-                      <th scope="col" className="px-6 py-4">
 
-                      </th>
-                      <th scope="col" className="px-6 py-4">
-                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -97,7 +94,7 @@ function TeacherAssignment() {
                           key={index}
                           className="transition-all ease-in-out  border-b  bg-neutral-50  text-black hover:text-black  hover:bg-slate-200"
                         >
-                          <td className="whitespace-nowrap px-6 py-4 font-medium ">
+                          <td className="flex justify-center items-center whitespace-nowrap px-6 py-4 font-medium ">
                             <img
                               src={item.image}
                               alt={"preview"}
@@ -105,18 +102,18 @@ function TeacherAssignment() {
                               className={imageClassName}
                             />
                           </td>
-                          <td className="overflow-x-scroll max-w-44 whitespace-nowrap px-6 py-4">
+                          <td className="overflow-x-auto max-w-44 whitespace-nowrap px-6 py-4">
                             {item.name}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
                                 <button onClick={()=>{
                                   handleModelView(item)
                                   setUserId(item._id)
-                                }} className="px-8 py-2 rounded-md text-white  border bg-slate-500">Assign Activity</button>
+                                }} className="px-8 py-2  rounded-md text-white  border bg-slate-500">Assign Activity</button>
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
                                 <Link to={`/teacher/view-activites/${item._id}`}>
-                                  <button  className="px-8 py-2 rounded-md text-white  border bg-slate-500">View Activities</button>
+                                  <button  className="px-8 py-2 rounded-md text-white  border bg-green-500">View Activities</button>
                                 </Link>
                           </td>
                         </tr>
@@ -130,16 +127,13 @@ function TeacherAssignment() {
                     <div className="flex justify-end">
                       <h1 className="mb-4 break-words text-2xl">
                         {" "}
-                        <IoMdClose onClick={()=>setIsModalToggle(!isModalToggle)} />{" "}
+                        <IoMdClose className="cursor-pointer" onClick={()=>setIsModalToggle(!isModalToggle)} />{" "}
                       </h1>
                     </div>
                     <form onSubmit={handleSubmitActivity} className="grid grid-cols-1 gap-3  font-medium">
                       
                       <input type="text" placeholder="Activity" value={activity} onChange={(e)=>setActivity(e.target.value)} className="shadow-xl border  py-3 px-3 rounded-md" />
-                      <input type="submit" value={'Submit'} placeholder="Activity" className="bg-black text-white py-3 rounded-md" />
-
-                        
-
+                      <input type="submit" value={'Submit'} placeholder="Activity" className="bg-black cursor-pointer text-white py-3 rounded-md" />
                     </form>
                   </div>}
                 </>

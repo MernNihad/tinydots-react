@@ -60,12 +60,6 @@ function Profile() {
             <button type='button' className=' w-fit px-10 py-2 mt-2 rounded-md bg-green-500 text-white tex-sm font-medium'>Edit</button>
 
         </Link>
-
-        <Link to={`/admin/admin-edit-profile`}>
-            {/* <p className='hover:underline px-8 py-2 text-sm shadow-md mt-4 w-fit rounded-md text-black'>Edit</p> */}
-            <button type='button' className=' w-fit px-10 py-2 mt-2 rounded-md bg-green-500 text-white tex-sm font-medium'>Edit</button>
-
-        </Link>
     </div>
     </>
 

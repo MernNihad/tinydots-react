@@ -11,7 +11,7 @@ function TeacherProfile() {
     const className = `rounded-md border appearance-none px-4 py-3 outline-none bg-slate-50 shadow-md text-sm`
     const [loading,setLoading] = useState(false)
     const [data,setData] = useState({})
-    const imageClassName = `className='w-12 h-12 rounded-full my-3'`
+    const imageClassName = `w-12 h-12 rounded-full my-3`
 
     useEffect(()=>{
         fetchAPI()
@@ -54,10 +54,13 @@ function TeacherProfile() {
         <p className={className}>City  : <span>{data.city}</span></p>
         <p className={className}>State  : <span>{data.state}</span></p>
         <p className={className}>Qualification  :  <span>{data.qualification}</span></p>
+
+        <p className={className}>IFSCCode  :  <span>{data &&data.Bankinfo?.length > 0 && data?.Bankinfo[0]?.IFSCCode}</span></p>
+        <p className={className}>Account Number  :  <span>{data && data?.Bankinfo?.length > 0 && data?.Bankinfo[0]?.accountNumber}</span></p>
+        <p className={className}>Branch  :  <span>{data && data?.Bankinfo?.length > 0 && data?.Bankinfo[0]?.branch}</span></p>
     </div>
     <div className="">
         <Link to={`/teacher/teacher-edit-profile/${data._id}`}>
-            {/* <p className='hover:underline px-8 py-2 text-sm shadow-md mt-4 w-fit rounded-md text-black'>Edit</p> */}
             <button type='button' className=' w-fit px-10 py-2 mt-2 rounded-md bg-green-500 text-white tex-sm font-medium'>Edit</button>
 
         </Link>
