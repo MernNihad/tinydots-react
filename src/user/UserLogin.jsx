@@ -31,7 +31,7 @@ function ParentLogin() {
 
             successToast(response?.message || 'Successfully Logged')
             navigate('/')
-            window.location.reload()
+            // window.location.reload()
             
         } catch (error) {
             errorToast(error.response.data.message || error.message || 'something went wrong!')

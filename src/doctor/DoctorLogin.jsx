@@ -28,8 +28,9 @@ function DoctorLogin() {
             }
             navigate('/doctors')
             successToast(response?.message || 'Successfully Logged')
-            window.location.reload()
+            // window.location.reload()
         } catch (error) {
+            console.log(error)
             errorToast(error.response.data.message || error.message || 'something went wrong!')
         }
     }
